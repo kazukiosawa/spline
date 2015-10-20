@@ -1,28 +1,28 @@
-%de Boorã«ã‚ˆã‚‹3æ¬¡ã®åŒã‚¹ãƒ—ãƒ©ã‚¤ãƒ³ã®å®šæ•°a0,0~a3,3ã‚’æ±‚ã‚ã‚‹é€£ç«‹æ–¹ç¨‹å¼ã§ä½¿ç”¨ã™ã‚‹è¡Œåˆ—ã‚’å–å¾—
+%de Boor‚É‚æ‚é3Ÿ‚Ì‘oƒXƒvƒ‰ƒCƒ“‚Ì’è”a0,0~a3,3‚ğ‹‚ß‚é˜A—§•û’ö®‚Åg—p‚·‚és—ñ‚ğæ“¾
 function[Q] = MatrixForEquations()
-    degree = 3;  %3æ¬¡ã®åŒã‚¹ãƒ—ãƒ©ã‚¤ãƒ³
+    degree = 3;  %3Ÿ‚Ì‘oƒXƒvƒ‰ƒCƒ“
     size = (degree + 1)^2;
     Q = zeros(size, size);    
     for row = 1 : size
         parameters = ParametersForDifferential(row);
         for col = 1 : size
-            deg_x = floor((col - 1) / 4); % xã®æ¬¡æ•°
-            deg_y = rem((col - 1), 4);    % yã®æ¬¡æ•°
+            deg_x = floor((col - 1) / 4); % x‚ÌŸ”
+            deg_y = rem((col - 1), 4);    % y‚ÌŸ”
             Q(row, col) = CoefficientByDifferential(deg_x, deg_y, parameters);
         end
     end
 end
 
-%ã€€è¡Œæ•°ã”ã¨ã«ã€å¾®åˆ†ã«é–¢ã‚ã‚‹å„ç¨®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’å–å¾—
+%@s”‚²‚Æ‚ÉA”÷•ª‚ÉŠÖ‚í‚éŠeíƒpƒ‰ƒ[ƒ^‚ğæ“¾
 function[parameters] = ParametersForDifferential(row)
-    val_x = rem(floor((row - 1)/ 2), 2); % (x-xi)/(xi+1-xi)ã®å€¤
-    val_y = rem((row - 1), 2);           % (y-yi)/(yi+1-yi)ã®å€¤
-    dif_x = rem(floor((row - 1)/ 4), 2); % xã§ã®å¾®åˆ†éšæ•°
-    dif_y = floor((row - 1)/ 8);         % yã§ã®å¾®åˆ†éšæ•°
+    val_x = rem(floor((row - 1)/ 2), 2); % (x-xi)/(xi+1-xi)‚Ì’l
+    val_y = rem((row - 1), 2);           % (y-yi)/(yi+1-yi)‚Ì’l
+    dif_x = rem(floor((row - 1)/ 4), 2); % x‚Å‚Ì”÷•ªŠK”
+    dif_y = floor((row - 1)/ 8);         % y‚Å‚Ì”÷•ªŠK”
     parameters = struct('val_x', val_x,'val_y', val_y, 'dif_x', dif_x, 'dif_y', dif_y);
 end
 
-%  å¾®åˆ†ã«ã‚ˆã‚‹ä¿‚æ•°ã‚’å–å¾—
+%  ”÷•ª‚É‚æ‚éŒW”‚ğæ“¾
 function[coefficient] = CoefficientByDifferential(deg_x, deg_y, parameters)
     val_x = parameters.val_x;
     val_y = parameters.val_y;
@@ -36,7 +36,7 @@ function[coefficient] = CoefficientByDifferential(deg_x, deg_y, parameters)
     end
 end
 
-%  ä¿‚æ•°ã®å¤§ãã•ã‚’å–å¾—
+%  ŒW”‚Ì‘å‚«‚³‚ğæ“¾
 function[size] = CoefficientSize(deg_x, deg_y, dif_x, dif_y)
     if dif_x == 0 && dif_y == 0
         size = 1;
@@ -49,7 +49,7 @@ function[size] = CoefficientSize(deg_x, deg_y, dif_x, dif_y)
     end
 end
 
-%  ä¿‚æ•°ãŒæœ‰åŠ¹ã‹åˆ¤æ–­
+%  ŒW”‚ª—LŒø‚©”»’f
 function[flag] = CoefficientIsValiable(deg_x, deg_y, dif_x, dif_y, val_x, val_y)
     if val_x == 0 && val_y == 0
         flag = (deg_x == dif_x && deg_y == dif_y);
